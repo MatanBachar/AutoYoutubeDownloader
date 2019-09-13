@@ -7,7 +7,7 @@ SEARCH_URL = "http://www.youtube.com/results?"
 PREFIX_WATCH = "http://www.youtube.com/watch?v="
 
 class CoolSearcher(YoutubeSearcher):
-    
+    '''Simple searcher for youtube that uses the basic search url youtube provides'''
     def search(self, query):
         query_string = urllib.parse.urlencode({"search_query" : query})
         html_content = urllib.request.urlopen(SEARCH_URL + query_string)
