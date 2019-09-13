@@ -1,4 +1,4 @@
-from downloader import YoutubeDownloader 
+from .downloader import YoutubeDownloader 
 import subprocess
 import os.path
 import os
