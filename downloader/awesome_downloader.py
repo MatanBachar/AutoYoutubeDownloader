@@ -1,4 +1,5 @@
 from .downloader import YoutubeDownloader 
+import shutil
 import subprocess
 import os.path
 import os
@@ -40,7 +41,7 @@ class AwesomeDownloader(YoutubeDownloader):
                 print("Playlist already exists here. Skipping...")
                 return False
             print("OVERRIDE ACTIVATED: Overriding existing playlist...")
-            os.remove(playlist_dir)
+            shutil.rmtree(playlist_dir)
     
         os.mkdir(playlist_dir)
         file_name = "%(title)s.%(ext)s"
