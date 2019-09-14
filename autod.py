@@ -14,6 +14,10 @@ def get_args():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-f', '--file',          metavar='FILENAME',           type=argparse.FileType('r', encoding='utf8'),
                              help='Download multiple songs with a given list from file. Song names seperated by newlines')
+    group.add_argument('-c', '--csv',          metavar='FILENAME',           type=argparse.FileType('r', encoding='utf8'),
+                             help="""Download multiple songs with a given list from csv file.
+                                     Each line represent a song, each song represented by song name and artist name
+                                     seperated by comma.""")
     group.add_argument('-s', '--single',        metavar='NAME',               type=str,
                              help='Download speceific song by name')
     group.add_argument('-p', '--playlist',      metavar='URL playlist_name',  type=str,   nargs=2,
@@ -40,6 +44,8 @@ def main():
             result = next(youtube_searcher.search(song + " hq" if song.isalpha() else song))
             print("Song read from txt file: " + result)
             youtube_downloader.download(result, song.strip(), args.dest, args.override)
+    if args.csv:
+        pass
     if args.single:
         # Search for specific song in youtube
         result = next(youtube_searcher.search(args.single.strip() + " hq" if args.single.isalpha() else args.single))
