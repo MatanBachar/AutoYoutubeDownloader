@@ -28,6 +28,7 @@ class AwesomeDownloader(YoutubeDownloader):
         subprocess.call(cmd_arguments, shell=True)
         try:
             os.rename(file_name, new_name)
+            print(new_name + " download completed.")
         except:
             print("Failed Downloading file")
         return True
@@ -48,7 +49,3 @@ class AwesomeDownloader(YoutubeDownloader):
         cmd_arguments = ['youtube-dl', '-f', 'bestaudio', '--audio-quality', '0', youtube_url, '-x', '--audio-format', 'mp3', '-o', os.path.join(playlist_dir, file_name)]
         subprocess.call(cmd_arguments, shell=True)
         return True
-
-if __name__ == "__main__":
-    a = AwesomeDownloader()
-    a.download("https://www.youtube.com/watch?v=JFYVcz7h3o0", "amonamon", "C:\\Users\\matan\\Music\\test")
