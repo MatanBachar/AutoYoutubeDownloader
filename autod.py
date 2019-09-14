@@ -1,5 +1,6 @@
 import argparse
 import os.path
+
 from searcher.cool_searcher import CoolSearcher
 from downloader.awesome_downloader import AwesomeDownloader
 
@@ -26,20 +27,25 @@ def get_args():
 
 def main():
     args = get_args()
-    
+
+    # Creating my awesome and cool helpers    
     youtube_searcher = CoolSearcher()
     youtube_downloader = AwesomeDownloader()
 
     if args.file:
+        # Iterates over the song in the file and searches for them in youtube
         for song in args.file.readlines():
             print(song.strip())
+            # Takes the first result from youtube, appending hq (high quality) to the key word for better result
             result = next(youtube_searcher.search(song + " hq" if song.isalpha() else song))
-            print(result)
+            print("Song read from txt file: " + result)
             youtube_downloader.download(result, song.strip(), args.dest, args.override)
     if args.single:
+        # Search for specific song in youtube
         result = next(youtube_searcher.search(args.single.strip() + " hq" if args.single.isalpha() else args.single))
         youtube_downloader.download(result, args.single.strip(), args.dest, args.override)
     if args.playlist:
+        # URL is already given so no need to for searching
         youtube_downloader.download_playlist(args.playlist[0], args.playlist[1], args.dest, args.override)
 
 if __name__ == "__main__":
